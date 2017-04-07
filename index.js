@@ -1,8 +1,6 @@
 import mitt from 'mitt'
 
-const CHANNEL = '__brcast__'
-
-export default function createBroadcast (initialState) {
+export default function createBroadcast (initialState, channel = '__brcast__') {
   const emitter = mitt()
   let currentState = initialState
 
@@ -10,14 +8,14 @@ export default function createBroadcast (initialState) {
 
   const setState = state => {
     currentState = state
-    emitter.emit(CHANNEL, currentState)
+    emitter.emit(channel, currentState)
   }
 
   const subscribe = listener => {
-    emitter.on(CHANNEL, listener)
+    emitter.on(channel, listener)
 
     return function unsubscribe () {
-      emitter.off(CHANNEL, listener)
+      emitter.off(channel, listener)
     }
   }
 
