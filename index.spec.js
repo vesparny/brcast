@@ -1,6 +1,6 @@
 import test from 'tape'
 import sinon from 'sinon'
-import mittb from './'
+import mittb from './index'
 
 test('default export is a function', (t) => {
   t.ok(typeof mittb === 'function')

@@ -1,19 +1,23 @@
+import mitt from 'mitt'
+
+const CHANNEL = '__brcast__'
+
 export default function createBroadcast (initialState) {
-  let listeners = []
+  const emitter = mitt()
   let currentState = initialState
 
   const getState = () => currentState
 
   const setState = state => {
     currentState = state
-    listeners.forEach(listener => listener(currentState))
+    emitter.emit(CHANNEL, currentState)
   }
 
   const subscribe = listener => {
-    listeners.push(listener)
+    emitter.on(CHANNEL, listener)
 
     return function unsubscribe () {
-      listeners = listeners.filter(item => item !== listener)
+      emitter.off(CHANNEL, listener)
     }
   }
 

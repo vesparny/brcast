@@ -1,10 +1,8 @@
 # Brcast
 
-> Tiny 250b data broadcaster.
+> Tiny 250b data broadcaster powered by [mitt](https://github.com/developit/mitt)
 
--   **Microscopic:** weighs about 250 bytes gzipped
-
-Brcast was made for the browser, but works in any JavaScript runtime. It has no dependencies and.
+-   **Microscopic:** weighs about 400 bytes gzipped
 
 ## Table of Contents
 
