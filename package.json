@@ -1,7 +1,7 @@
 {
   "name": "brcast",
   "amdName": "brcast",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Tiny 250b data broadcaster.",
   "jsnext:main": "index.js",
   "main": "dist/brcast.js",
