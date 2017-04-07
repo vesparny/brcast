@@ -1,6 +1,6 @@
 # Brcast
 
-> Tiny 250b data broadcaster powered by [mitt](https://github.com/developit/mitt)
+> Tiny data broadcaster powered by [mitt](https://github.com/developit/mitt)
 
 -   **Microscopic:** weighs about 400 bytes gzipped
 
