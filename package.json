@@ -47,7 +47,6 @@
     "rimraf": "^2.5.2",
     "rollup": "^0.41.4",
     "rollup-plugin-buble": "^0.15.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
     "sinon": "^1.17.4",
     "standard": "^10.0.1",
     "standard-version": "^4.0.0",
@@ -55,7 +54,5 @@
     "tape": "^4.6.3",
     "uglify-js": "^2.6.2"
   },
-  "dependencies": {
-    "mitt": "^1.1.0"
-  }
+  "dependencies": {}
 }
