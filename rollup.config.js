@@ -2,7 +2,6 @@ import buble from 'rollup-plugin-buble'
 import resolve from 'rollup-plugin-node-resolve'
 import uglify from 'rollup-plugin-uglify'
 
-const pkg = require('./package')
 const minify = !!process.env.MINIFY
 
 export default {

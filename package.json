@@ -1,7 +1,7 @@
 {
   "name": "brcast",
   "amdName": "brcast",
-  "version": "1.1.6",
+  "version": "1.1.4",
   "description": "Tiny data broadcaster powered by mitt",
   "jsnext:main": "index.js",
   "module": "dist/brcast.es.js",
@@ -12,12 +12,12 @@
     "testonly": "tape -r babel-register *.spec.js | tap-spec",
     "lint": "standard",
     "test": "npm run lint && npm run testonly",
-    "build": "npm-run-all clean rollup rollup:min size",
+    "build": "npm-run-all test clean rollup rollup:min size",
     "clean": "rimraf dist",
     "rollup": "rollup -c",
     "rollup:min": "cross-env MINIFY=minify rollup -c",
     "size": "echo \"Gzipped Size: $(cat dist/brcast.umd.min.js | gzip-size)\"",
-    "release": "npm run build && npm run bump"
+    "release": "npm run build -s && npm run bump "
   },
   "repository": "vesparny/brcast",
   "keywords": [
