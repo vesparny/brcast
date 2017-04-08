@@ -2,7 +2,17 @@
 
 > Tiny data broadcaster powered by [mitt](https://github.com/developit/mitt)
 
--   **Microscopic:** weighs about 400 bytes gzipped
+[![Travis](https://img.shields.io/travis/vesparny/brcast.svg)](https://travis-ci.org/vesparny/brcast)
+[![David](https://img.shields.io/david/vesparny/brcast.svg)](https://david-dm.org/vesparny/brcast)
+[![npm](https://img.shields.io/npm/v/brcast.svg)](https://www.npmjs.com/package/brcast)
+[![npm](https://img.shields.io/npm/dm/brcast.svg)](https://npm-stat.com/charts.html?package=brcast&from=2017-04-01)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![MIT License](https://img.shields.io/npm/l/brcast.svg?style=flat-square)](https://github.com/vesparny/brcast/blob/master/LICENSE)
+
+It's like a data store you can subscribe to, with a setter to pump data in.
+
+-   weighs about 350 bytes gzipped
+-   for browsers and node
 
 ## Table of Contents
 
