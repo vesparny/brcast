@@ -1,40 +1,57 @@
 import test from 'tape'
 import sinon from 'sinon'
-import mittb from './index'
+import proxyquire from 'proxyquire'
+import brcast from './index'
 
 test('default export is a function', (t) => {
-  t.ok(typeof mittb === 'function')
+  t.ok(typeof brcast === 'function')
   t.end()
 })
 
-test('mittb()', (t) => {
+test('brcast()', (t) => {
+  const onSpy = sinon.spy()
+  const brcast = proxyquire('./index', {
+    'mitt': () => {
+      return {
+        on: onSpy
+      }
+    }
+  })
   const initialValue = 1
-  const broadcast = mittb(initialValue)
+  const broadcast = brcast.default(initialValue)
   t.equal(broadcast.getState(), initialValue, 'accepts the initial state')
+  broadcast.subscribe(() => {})
+  t.ok(onSpy.callCount === 1 && onSpy.calledWith('__brcast__'), 'the event handler is invoked with the state value as a parameter')
+
+  onSpy.reset()
+
+  const broadcast2 = brcast.default(initialValue, 'ciao')
+  broadcast2.subscribe(() => {})
+  t.ok(onSpy.callCount === 1 && onSpy.calledWith('ciao'), 'the event handler is invoked with the passed channel')
   t.end()
 })
 
-test('mittb().getState()', (t) => {
-  const broadcast = mittb()
+test('brcast().getState()', (t) => {
+  const broadcast = brcast()
   t.equal(broadcast.getState(), undefined, 'works without initial state')
   broadcast.setState(2)
   t.equal(broadcast.getState(), 2, 'updates states accordingly')
   t.end()
 })
 
-test('mittb().setState()', (t) => {
+test('brcast().setState()', (t) => {
   const handler = sinon.spy()
-  const broadcast = mittb()
+  const broadcast = brcast()
   broadcast.subscribe(handler)
   broadcast.setState(2)
   t.ok(handler.callCount === 1 && handler.calledWith(2), 'the event handler is invoked with the state value as a parameter')
   t.end()
 })
 
-test('mittb().subscribe()', (t) => {
+test('brcast().subscribe()', (t) => {
   const handler = sinon.spy()
   const handler1 = sinon.spy()
-  const broadcast = mittb(1)
+  const broadcast = brcast(1)
   const subscription = broadcast.subscribe(handler)
   const subscription1 = broadcast.subscribe(handler1)
   t.ok(typeof subscription === 'function', 'broadcast.subscribe(handler) returns a function')
