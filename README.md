@@ -1,6 +1,6 @@
 # Brcast
 
-> Tiny data broadcaster powered by [mitt](https://github.com/developit/mitt)
+> Tiny data broadcaster with 0 dependencies
 
 [![Travis](https://img.shields.io/travis/vesparny/brcast.svg)](https://travis-ci.org/vesparny/brcast)
 [![David](https://img.shields.io/david/vesparny/brcast.svg)](https://david-dm.org/vesparny/brcast)
@@ -11,7 +11,7 @@
 
 It's like a data store you can subscribe to, with a setter to pump data in.
 
--   weighs about 350 bytes gzipped
+-   weighs about 200 bytes gzipped
 -   for browsers and node
 
 ## Table of Contents
