@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/vesparny/brcast/compare/v1.1.6...v2.0.0) (2017-04-19)
+
+
+### Chores
+
+* remove mitt dependency ([52929e6](https://github.com/vesparny/brcast/commit/52929e6))
+
+
+### BREAKING CHANGES
+
+* does not support channel anymore
+
+
+
 <a name="1.1.6"></a>
 ## [1.1.6](https://github.com/vesparny/brcast/compare/v1.1.4...v1.1.6) (2017-04-08)
 
