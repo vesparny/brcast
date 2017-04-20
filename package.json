@@ -11,7 +11,7 @@
     "bump": "standard-version",
     "testonly": "tape -r babel-register *.spec.js | tap-spec",
     "lint": "standard",
-    "format": "prettier --write semi false '*.js' && standard --fix",
+    "format": "prettier --write --semi false '*.js' && standard --fix",
     "test": "npm run lint && npm run testonly",
     "build": "npm-run-all test clean rollup rollup:min size",
     "clean": "rimraf dist",
