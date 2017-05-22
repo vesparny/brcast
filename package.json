@@ -18,7 +18,7 @@
     "rollup": "rollup -c",
     "rollup:min": "cross-env MINIFY=minify rollup -c",
     "size": "echo \"Gzipped Size: $(cat dist/brcast.umd.min.js | gzip-size)\"",
-    "release": "npm run build -s && npm run bump && git push --follow-tags origin master && npm publish"
+    "release": "npm run build && npm run bump && git push --follow-tags origin master && npm publish"
   },
   "repository": "vesparny/brcast",
   "keywords": [
