@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/vesparny/brcast/compare/v2.0.0...v2.0.1) (2017-06-28)
+
+
+### Bug Fixes
+
+* increase performance by using an object literal for storing listeners ([4d36f91](https://github.com/vesparny/brcast/commit/4d36f91))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/vesparny/brcast/compare/v1.1.6...v2.0.0) (2017-04-19)
 
