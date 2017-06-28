@@ -1,19 +1,21 @@
 export default function createBroadcast (initialState) {
-  let listeners = []
+  let listeners = {}
+  let id = 0
   let _state = initialState
 
   const getState = () => _state
 
   const setState = state => {
     _state = state
-    listeners.forEach(listener => listener(_state))
+    Object.keys(listeners).forEach(id => listeners[id](_state))
   }
 
   const subscribe = listener => {
-    listeners.push(listener)
-
+    const currentId = id
+    listeners[currentId] = listener
+    id += 1
     return function unsubscribe () {
-      listeners = listeners.filter(item => item !== listener)
+      delete listeners[currentId]
     }
   }
 
