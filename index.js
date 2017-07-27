@@ -17,6 +17,7 @@ export default function createBroadcast (initialState) {
   }
 
   const subscribe = listener => {
+    if (typeof listener !== 'function') { throw new Error('listener must be a function.') }
     const currentId = id
     let isSubscribed = true
     listeners[currentId] = listener

@@ -18,7 +18,7 @@
     "rollup": "rollup -c",
     "rollup:min": "cross-env MINIFY=minify rollup -c",
     "size": "echo \"Gzipped Size: $(cat dist/brcast.umd.min.js | gzip-size)\"",
-     "precommit": "lint-staged",
+    "precommit": "lint-staged",
     "release": "npm run build && npm run bump && git push --follow-tags origin master && npm publish"
   },
   "repository": "vesparny/brcast",
@@ -46,6 +46,7 @@
     "cross-env": "^4.0.0",
     "gzip-size-cli": "^2.0.0",
     "husky": "^0.14.3",
+    "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
     "npm-run-all": "^4.0.2",
     "prettier": "^1.5.3",

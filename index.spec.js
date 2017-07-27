@@ -4,6 +4,17 @@ test('default export is a function', () => {
   expect(typeof brcast).toBe('function')
 })
 
+test('throws if listener is not a function', () => {
+  const broadcast = brcast()
+  expect(() => broadcast.subscribe()).toThrow()
+
+  expect(() => broadcast.subscribe('throw')).toThrow()
+
+  expect(() => broadcast.subscribe({})).toThrow()
+
+  expect(() => broadcast.subscribe(() => {})).not.toThrow()
+})
+
 test('is able to start with an undefined state and update it accordingly', () => {
   const broadcast = brcast()
   expect(broadcast.getState()).toBeUndefined()
