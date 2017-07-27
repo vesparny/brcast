@@ -1,50 +1,97 @@
-import test from 'tape'
-import sinon from 'sinon'
 import brcast from './index'
 
-test('default export is a function', t => {
-  t.ok(typeof brcast === 'function')
-  t.end()
+test('default export is a function', () => {
+  expect(typeof brcast).toBe('function')
 })
 
-test('brcast().getState()', t => {
+test('is able to start with an undefined state and update it accordingly', () => {
   const broadcast = brcast()
-  t.equal(broadcast.getState(), undefined, 'works without initial state')
+  expect(broadcast.getState()).toBeUndefined()
   broadcast.setState(2)
-  t.equal(broadcast.getState(), 2, 'updates states accordingly')
-  t.end()
+  expect(broadcast.getState()).toBe(2)
 })
 
-test('brcast().setState()', t => {
-  const handler = sinon.spy()
+test('it updates the state', () => {
+  const handler = jest.fn()
   const broadcast = brcast()
   broadcast.subscribe(handler)
   broadcast.setState(2)
-  t.ok(
-    handler.callCount === 1 && handler.calledWith(2),
-    'the event handler is invoked with the state value as a parameter'
-  )
-  t.end()
+  expect(handler.mock.calls.length).toBe(1)
+  expect(handler.mock.calls[0][0]).toBe(2)
 })
 
-test('brcast().subscribe()', t => {
-  const handler = sinon.spy()
-  const handler1 = sinon.spy()
+test('it unsubscribes only relevant listeners', () => {
+  const handler = jest.fn()
+  const handler1 = jest.fn()
   const broadcast = brcast(1)
   const subscription = broadcast.subscribe(handler)
-  const subscription1 = broadcast.subscribe(handler1)
-  t.ok(
-    typeof subscription === 'function',
-    'broadcast.subscribe(handler) returns a function'
-  )
+  broadcast.subscribe(handler1)
+  expect(typeof subscription).toBe('function')
   subscription()
   broadcast.setState(2)
   broadcast.setState(3)
-  t.ok(
-    handler.callCount === 0,
-    'when the unsubscribe function is invoked, the handler is not invoked anymore'
+  expect(handler.mock.calls.length).toBe(0)
+  expect(handler1.mock.calls.length).toBe(2)
+})
+
+test('removes listeners only once when unsubscribing more than once', () => {
+  const handler = jest.fn()
+  const broadcast = brcast(1)
+  const subscription = broadcast.subscribe(handler)
+
+  subscription()
+  subscription()
+  broadcast.setState(2)
+  expect(handler.mock.calls.length).toBe(0)
+})
+
+test('supports removing a subscription within a subscription', () => {
+  const broadcast = brcast(1)
+  const handler = jest.fn()
+  const handler1 = jest.fn()
+  const handler2 = jest.fn()
+
+  broadcast.subscribe(handler)
+  const unSub1 = broadcast.subscribe(() => {
+    handler1()
+    unSub1()
+  })
+  broadcast.subscribe(handler2)
+
+  broadcast.setState(2)
+  broadcast.setState(3)
+  expect(handler.mock.calls.length).toBe(2)
+  expect(handler1.mock.calls.length).toBe(1)
+  expect(handler2.mock.calls.length).toBe(2)
+})
+
+test('do not notify subscribers getting unsubscribed in the middle of a setState', () => {
+  const broadcast = brcast()
+
+  const unsubscribeHandles = []
+  const doUnsubscribeAll = () =>
+    unsubscribeHandles.forEach(unsubscribe => unsubscribe())
+
+  const handler = jest.fn()
+  const handler1 = jest.fn()
+  const handler2 = jest.fn()
+
+  unsubscribeHandles.push(broadcast.subscribe(handler))
+  unsubscribeHandles.push(
+    broadcast.subscribe(() => {
+      handler1()
+      doUnsubscribeAll()
+    })
   )
-  t.ok(handler1.callCount === 2, 'other handlers still get invoked')
-  subscription1()
-  t.end()
+  unsubscribeHandles.push(broadcast.subscribe(handler2))
+
+  broadcast.setState(2)
+  expect(handler.mock.calls.length).toBe(1)
+  expect(handler1.mock.calls.length).toBe(1)
+  expect(handler2.mock.calls.length).toBe(0)
+
+  broadcast.setState(3)
+  expect(handler.mock.calls.length).toBe(1)
+  expect(handler1.mock.calls.length).toBe(1)
+  expect(handler2.mock.calls.length).toBe(0)
 })
