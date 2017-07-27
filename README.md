@@ -3,7 +3,7 @@
 > Tiny data broadcaster with 0 dependencies
 
 [![Travis](https://img.shields.io/travis/vesparny/brcast.svg)](https://travis-ci.org/vesparny/brcast)
-[![Code Coverage](https://img.shields.io/codecov/c/github/vesparny/fair-analytics.svg?style=flat-square)](https://codecov.io/github/vesparny/fair-analytics)
+[![Code Coverage](https://img.shields.io/codecov/c/github/vesparny/brcast.svg?style=flat-square)](https://codecov.io/github/vesparny/brcast)
 [![David](https://img.shields.io/david/vesparny/brcast.svg)](https://david-dm.org/vesparny/brcast)
 [![npm](https://img.shields.io/npm/v/brcast.svg)](https://www.npmjs.com/package/brcast)
 [![npm](https://img.shields.io/npm/dm/brcast.svg)](https://npm-stat.com/charts.html?package=brcast&from=2017-04-01)
