@@ -18,21 +18,21 @@ export default function createBroadcast (initialState) {
     }
   }
 
+  // subscribe to changes and return the subscriptionId
   const subscribe = listener => {
     if (typeof listener !== 'function') {
       throw new Error('listener must be a function.')
     }
     const currentId = id
-    let isSubscribed = true
     listeners[currentId] = listener
     id += 1
-    return function unsubscribe () {
-      // in case unsubscribe gets called multiple times we simply return
-      if (!isSubscribed) return
-      isSubscribed = false
-      delete listeners[currentId]
-    }
+    return currentId
   }
 
-  return { getState, setState, subscribe }
+  // remove subscription by removing the listener function
+  const unsubscribe = id => {
+    if (listeners[id]) delete listeners[id]
+  }
+
+  return { getState, setState, subscribe, unsubscribe }
 }
