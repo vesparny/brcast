@@ -1,6 +1,6 @@
 export default function createBroadcast (initialState) {
   let listeners = {}
-  let id = 0
+  let id = 1
   let _state = initialState
 
   const getState = () => _state
@@ -12,9 +12,7 @@ export default function createBroadcast (initialState) {
     const len = keys.length
     for (; i < len; i++) {
       // if a listener gets unsubscribed during setState we just skip it
-      if (typeof listeners[keys[i]] !== 'undefined') {
-        listeners[keys[i]](state)
-      }
+      if (listeners[keys[i]]) listeners[keys[i]](state)
     }
   }
 
