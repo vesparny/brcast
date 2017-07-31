@@ -8,7 +8,9 @@ export default function createBroadcast (initialState) {
   const setState = state => {
     _state = state
     const keys = Object.keys(listeners)
-    for (let i = 0; i < keys.length; i += 1) {
+    let i = 0
+    const len = keys.length
+    for (; i < len; i++) {
       // if a listener gets unsubscribed during setState we just skip it
       if (typeof listeners[keys[i]] !== 'undefined') {
         listeners[keys[i]](state)
@@ -17,7 +19,9 @@ export default function createBroadcast (initialState) {
   }
 
   const subscribe = listener => {
-    if (typeof listener !== 'function') { throw new Error('listener must be a function.') }
+    if (typeof listener !== 'function') {
+      throw new Error('listener must be a function.')
+    }
     const currentId = id
     let isSubscribed = true
     listeners[currentId] = listener
