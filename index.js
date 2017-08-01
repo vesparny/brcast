@@ -3,9 +3,11 @@ export default function createBroadcast (initialState) {
   let id = 1
   let _state = initialState
 
-  const getState = () => _state
+  function getState () {
+    return _state
+  }
 
-  const setState = state => {
+  function setState (state) {
     _state = state
     const keys = Object.keys(listeners)
     let i = 0
@@ -17,7 +19,7 @@ export default function createBroadcast (initialState) {
   }
 
   // subscribe to changes and return the subscriptionId
-  const subscribe = listener => {
+  function subscribe (listener) {
     if (typeof listener !== 'function') {
       throw new Error('listener must be a function.')
     }
@@ -28,7 +30,7 @@ export default function createBroadcast (initialState) {
   }
 
   // remove subscription by removing the listener function
-  const unsubscribe = id => {
+  function unsubscribe (id) {
     if (listeners[id]) delete listeners[id]
   }
 
