@@ -21,6 +21,7 @@ For browsers and node.
 
 -   [Install](#install)
 -   [Usage](#usage)
+-   [API](#API)
 -   [Testing](#tests)
 -   [License](#license)
 
@@ -58,7 +59,7 @@ import brcast from 'brcast'
 let broadcast = brcast()
 
 // subscribe
-let unsubscribe = broadcast.subscribe(state => console.log(state))
+const subscriptionId = broadcast.subscribe(state => console.log(state))
 
 // setState sets the state and invoke all subscription callbacks passing in the state
 broadcast.setState(1)
@@ -66,10 +67,67 @@ broadcast.setState(1)
 // setState returns the current state
 broadcast.getState()
 
-// unsubscribe: invoke the function returned by broadcast.subscribe(state => console.log(state))
-// to unbind the handler
-unsubscribe()
+// unsubscribe to unbind the handler
+broadcast.unsubscribe(subscriptionId)
 ```
+
+## API
+
+### `brcast([initialState])`
+
+Creates a `broadcast` object.
+
+#### Arguments
+
+1 - [`initialState`] *(any)*: The initial state.
+
+#### Returns
+
+(`broadcast`): An object that holds the state.
+
+### `broadcast.setState(state)`
+
+Store the new state.
+
+#### Arguments
+
+1 - `state` *(any)*: The new state.
+
+#### Returns
+
+Nothing.
+
+### `broadcast.getState()`
+
+Get the stored state.
+
+#### Returns
+
+(`Any`): The stored state.
+
+### `broadcast.subscribe(handler)`
+
+Subscribe to state changes.
+
+#### Arguments
+
+1 - `handler` *(Function)*: The callback to be invoked any time the state changes.
+
+#### Returns
+
+(`Number`): The subscription id to be used to unsubscribe.
+
+### `broadcast.unsubscribe(subscriptionId)`
+
+Unsubscribe the change listener.
+
+#### Arguments
+
+1 - `subscriptionId` *(Number)*: The subscription id returned by subscribing.
+
+#### Returns
+
+Nothing.
 
 ## Tests
 
