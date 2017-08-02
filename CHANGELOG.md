@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/vesparny/brcast/compare/v2.0.2...v3.0.0) (2017-08-02)
+
+
+### Performance Improvements
+
+* improve performance by not allocating an unsubscribe function for ([e70f01e](https://github.com/vesparny/brcast/commit/e70f01e))
+
+
+### BREAKING CHANGES
+
+* subscribe does not return a function anymore, but a
+subscriptionId instead
+
+
+
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/vesparny/brcast/compare/v2.0.1...v2.0.2) (2017-07-27)
 

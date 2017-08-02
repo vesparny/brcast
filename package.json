@@ -1,14 +1,14 @@
 {
   "name": "brcast",
   "amdName": "brcast",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Tiny data broadcaster with 0 dependencies",
   "jsnext:main": "index.js",
   "module": "dist/brcast.es.js",
   "main": "dist/brcast.cjs.js",
   "umd:main": "dist/brcast.umd.js",
   "scripts": {
-    "bump": "standard-version",
+    "bump": "standard-version --dry-run",
     "testonly": "jest --coverage",
     "lint": "standard",
     "format": "prettier --write --semi false '*.js' && standard --fix",
