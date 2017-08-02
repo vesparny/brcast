@@ -1,34 +1,38 @@
 export default function createBroadcast (initialState) {
   let listeners = {}
-  let id = 0
+  let id = 1
   let _state = initialState
 
-  const getState = () => _state
+  function getState () {
+    return _state
+  }
 
-  const setState = state => {
+  function setState (state) {
     _state = state
     const keys = Object.keys(listeners)
-    for (let i = 0; i < keys.length; i += 1) {
+    let i = 0
+    const len = keys.length
+    for (; i < len; i++) {
       // if a listener gets unsubscribed during setState we just skip it
-      if (typeof listeners[keys[i]] !== 'undefined') {
-        listeners[keys[i]](state)
-      }
+      if (listeners[keys[i]]) listeners[keys[i]](state)
     }
   }
 
-  const subscribe = listener => {
-    if (typeof listener !== 'function') { throw new Error('listener must be a function.') }
+  // subscribe to changes and return the subscriptionId
+  function subscribe (listener) {
+    if (typeof listener !== 'function') {
+      throw new Error('listener must be a function.')
+    }
     const currentId = id
-    let isSubscribed = true
     listeners[currentId] = listener
     id += 1
-    return function unsubscribe () {
-      // in case unsubscribe gets called multiple times we simply return
-      if (!isSubscribed) return
-      isSubscribed = false
-      delete listeners[currentId]
-    }
+    return currentId
   }
 
-  return { getState, setState, subscribe }
+  // remove subscription by removing the listener function
+  function unsubscribe (id) {
+    listeners[id] = undefined
+  }
+
+  return { getState, setState, subscribe, unsubscribe }
 }

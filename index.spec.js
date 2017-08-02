@@ -4,14 +4,22 @@ test('default export is a function', () => {
   expect(typeof brcast).toBe('function')
 })
 
+test('exposes the public API', () => {
+  const broadcast = brcast()
+  const methods = Object.keys(broadcast)
+
+  expect(methods.length).toBe(4)
+  expect(methods).toContain('subscribe')
+  expect(methods).toContain('unsubscribe')
+  expect(methods).toContain('getState')
+  expect(methods).toContain('setState')
+})
+
 test('throws if listener is not a function', () => {
   const broadcast = brcast()
   expect(() => broadcast.subscribe()).toThrow()
-
   expect(() => broadcast.subscribe('throw')).toThrow()
-
   expect(() => broadcast.subscribe({})).toThrow()
-
   expect(() => broadcast.subscribe(() => {})).not.toThrow()
 })
 
@@ -35,10 +43,9 @@ test('it unsubscribes only relevant listeners', () => {
   const handler = jest.fn()
   const handler1 = jest.fn()
   const broadcast = brcast(1)
-  const subscription = broadcast.subscribe(handler)
+  const subscriptionId = broadcast.subscribe(handler)
   broadcast.subscribe(handler1)
-  expect(typeof subscription).toBe('function')
-  subscription()
+  broadcast.unsubscribe(subscriptionId)
   broadcast.setState(2)
   broadcast.setState(3)
   expect(handler.mock.calls.length).toBe(0)
@@ -48,10 +55,10 @@ test('it unsubscribes only relevant listeners', () => {
 test('removes listeners only once when unsubscribing more than once', () => {
   const handler = jest.fn()
   const broadcast = brcast(1)
-  const subscription = broadcast.subscribe(handler)
+  const subscriptionId = broadcast.subscribe(handler)
 
-  subscription()
-  subscription()
+  broadcast.unsubscribe(subscriptionId)
+  broadcast.unsubscribe(subscriptionId)
   broadcast.setState(2)
   expect(handler.mock.calls.length).toBe(0)
 })
@@ -63,9 +70,9 @@ test('supports removing a subscription within a subscription', () => {
   const handler2 = jest.fn()
 
   broadcast.subscribe(handler)
-  const unSub1 = broadcast.subscribe(() => {
+  const sub1Id = broadcast.subscribe(() => {
     handler1()
-    unSub1()
+    broadcast.unsubscribe(sub1Id)
   })
   broadcast.subscribe(handler2)
 
@@ -79,22 +86,22 @@ test('supports removing a subscription within a subscription', () => {
 test('do not notify subscribers getting unsubscribed in the middle of a setState', () => {
   const broadcast = brcast()
 
-  const unsubscribeHandles = []
+  const unsubscribeIds = []
   const doUnsubscribeAll = () =>
-    unsubscribeHandles.forEach(unsubscribe => unsubscribe())
+    unsubscribeIds.forEach(id => broadcast.unsubscribe(id))
 
   const handler = jest.fn()
   const handler1 = jest.fn()
   const handler2 = jest.fn()
 
-  unsubscribeHandles.push(broadcast.subscribe(handler))
-  unsubscribeHandles.push(
+  unsubscribeIds.push(broadcast.subscribe(handler))
+  unsubscribeIds.push(
     broadcast.subscribe(() => {
       handler1()
       doUnsubscribeAll()
     })
   )
-  unsubscribeHandles.push(broadcast.subscribe(handler2))
+  unsubscribeIds.push(broadcast.subscribe(handler2))
 
   broadcast.setState(2)
   expect(handler.mock.calls.length).toBe(1)
