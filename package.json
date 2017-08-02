@@ -8,7 +8,7 @@
   "main": "dist/brcast.cjs.js",
   "umd:main": "dist/brcast.umd.js",
   "scripts": {
-    "bump": "standard-version --dry-run",
+    "bump": "standard-version",
     "testonly": "jest --coverage",
     "lint": "standard",
     "format": "prettier --write --semi false '*.js' && standard --fix",
