@@ -3,7 +3,7 @@
   "amdName": "brcast",
   "version": "3.0.0",
   "description": "Tiny data broadcaster with 0 dependencies",
-  "jsnext:main": "index.js",
+  "jsnext:main": "dist/brcast.es.js",
   "module": "dist/brcast.es.js",
   "main": "dist/brcast.cjs.js",
   "umd:main": "dist/brcast.umd.js",
