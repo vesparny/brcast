@@ -21,7 +21,7 @@ For browsers and node.
 
 -   [Install](#install)
 -   [Usage](#usage)
--   [API](#API)
+-   [API](#api)
 -   [Testing](#tests)
 -   [License](#license)
 
