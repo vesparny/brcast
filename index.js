@@ -31,7 +31,7 @@ export default function createBroadcast (initialState) {
 
   // remove subscription by removing the listener function
   function unsubscribe (id) {
-    listeners[id] = undefined
+    delete listeners[id]
   }
 
   return { getState, setState, subscribe, unsubscribe }
